@@ -8,7 +8,8 @@ import java.util.TimeZone
 import org.apache.hadoop.io.{LongWritable, Text}
 import org.wikimedia.scalding.WebRequestText
 
-object WebRequestsSource {
+// a source that provides a pipe of the k/v tupls stored in the raw sequence files
+object WikipediaSequenceFilesSource {
   def apply(
       source: String)(
       implicit dateRange: DateRange,
@@ -24,6 +25,7 @@ object WebRequestsSource {
   }
 }
 
+// Typed source for text web requests. It parses the json into the domain class WebRequestText
 object WebRequestTextSource {
   val mapper = new ObjectMapper()
   mapper.registerModule(new DefaultScalaModule)
@@ -31,7 +33,7 @@ object WebRequestTextSource {
   def apply()(
       implicit dateRange: DateRange,
       tz: TimeZone,
-      dp: DateParser) = WebRequestsSource("webrequest_text")
+      dp: DateParser) = WikipediaSequenceFilesSource("webrequest_text")
     .map { case (lw, sw) => lw.get -> sw.toString }
     .map { case (_, requestString) =>
       mapper.readValue(requestString, classOf[WebRequestText])

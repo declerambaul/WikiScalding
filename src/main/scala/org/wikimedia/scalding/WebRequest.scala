@@ -1,7 +1,9 @@
 package org.wikimedia.scalding
 
+
 trait WebRequest
 
+// domain model for a web request
 case class WebRequestText(
   hostname: String,
   sequence: String,

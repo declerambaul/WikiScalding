@@ -3,14 +3,11 @@ package org.wikimedia.scalding
 import com.twitter.algebird._
 import com.twitter.scalding._
 import com.twitter.scalding.source._
-import com.twitter.scalding.typed.TDsl
 import org.apache.hadoop.io.{LongWritable, Text}
-// import org.codehaus.jackson.map.ObjectMapper
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.scala.DefaultScalaModule
 
-// very proof of concepty
-// todo: use WebRequestSource
+// ignore this
+// this was the first test job for algebird monoids
+// it should mix in the PageViews aggregations and output topK on those
 object TopSites {
   implicit val topKMonoid = new TopKMonoid[(String, Long)](100)(Ordering.by(_._2))
 
