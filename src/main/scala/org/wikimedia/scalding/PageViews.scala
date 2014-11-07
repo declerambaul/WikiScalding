@@ -61,6 +61,7 @@ case class PageView(
   project: String,
   request: WebRequestText)
 
+
 object PageView {
   import WebRequestTextExtractors._
   def fromWebRequestText(req: WebRequestText): PageView = {
@@ -112,6 +113,13 @@ trait PageViews {
     val hour = dp.parse(pw.request.dt).get.timestamp / (1000*60*60)
     (hour, pw.project, pw.language) -> 1L
   }.sumByLocalKeys.sumByKey.withReducers(10)
+
+  // this type should be versioned, e.g. thrift
+  // case class WmfKey(
+  //   hour: Option[Int],
+  //   project: Option[String],
+  //   language, Option[String],
+  //   article, Option[String])
 
   // hour, project, count
   lazy val byProject = validPageviews.map { case pw =>

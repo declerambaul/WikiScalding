@@ -5,6 +5,21 @@ import com.twitter.scalding._
 import com.twitter.scalding.source._
 import org.apache.hadoop.io.{LongWritable, Text}
 
+
+
+/*
+trending page counts
+
+(PageId,TimeBucket) -> Moments(1d)
+
+Grouped[PageId, (TimeBucket, Moments)]
+
+sorted by timebucket
+map out timeBucket
+mapValueStream ( Iterator => Iterator )
+  sliding window - measure of peakyness
+
+*/
 // ignore this
 // this was the first test job for algebird monoids
 // it should mix in the PageViews aggregations and output topK on those
